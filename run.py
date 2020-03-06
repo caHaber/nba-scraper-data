@@ -6,7 +6,38 @@ import csv
 import pickle
 import os.path
 # NBA teams and their abbriviations
-nba_teams = [['ATL', 'Atlanta Hawks'], ['BRK', 'Brooklyn Nets'], ['BOS', 'Boston Celtics'], ['CHO', 'Charlotte Hornets'], ['CHI', 'Chicago Bulls'], ['CLE', 'Cleveland Cavaliers'], ['DAL', 'Dallas Mavericks'], ['DEN', 'Denver Nuggets'], ['DET', 'Detroit Pistons'], ['GSW', 'Golden State Warriors'], ['HOU', 'Houston Rockets'], ['IND', 'Indiana Pacers'], ['LAC', 'Los Angeles Clippers'], ['LAL', 'Los Angeles Lakers'], ['MEM', 'Memphis Grizzlies'], ['MIA', 'Miami Heat'], ['MIL', 'Milwaukee Bucks'], ['MIN', 'Minnesota Timberwolves'], ['NOP', 'New Orleans Pelicans'], ['NYK', 'New York Knicks'], ['OKC', 'Oklahoma City Thunder'], ['ORL', 'Orlando Magic'], ['PHI', 'Philadelphia 76ers'], ['PHO', 'Phoenix Suns'], ['POR', 'Portland Trail Blazers'], ['SAC', 'Sacramento Kings'], ['SAS', 'San Antonio Spurs'], ['TOR', 'Toronto Raptors'], ['UTA', 'Utah Jazz'], ['WAS', 'Washington Wizards']]
+nba_teams = [
+  ['ATL', 'Atlanta Hawks'],
+  ['BKN', 'Brooklyn Nets'],
+  ['BOS', 'Boston Celtics'],
+  ['CHO', 'Charlotte Hornets'],
+  ['CHI', 'Chicago Bulls'],
+  ['CLE', 'Cleveland Cavaliers'],
+  ['DAL', 'Dallas Mavericks'],
+  ['DEN', 'Denver Nuggets'],
+  ['DET', 'Detroit Pistons'],
+  ['GSW', 'Golden State Warriors'],
+  ['HOU', 'Houston Rockets'],
+  ['IND', 'Indiana Pacers'],
+  ['LAC', 'Los Angeles Clippers'],
+  ['LAL', 'Los Angeles Lakers'],
+  ['MEM', 'Memphis Grizzlies'],
+  ['MIA', 'Miami Heat'],
+  ['MIL', 'Milwaukee Bucks'],
+  ['MIN', 'Minnesota Timberwolves'],
+  ['NOP', 'New Orleans Pelicans'],
+  ['NYK', 'New York Knicks'],
+  ['OKC', 'Oklahoma City Thunder'],
+  ['ORL', 'Orlando Magic'],
+  ['PHI', 'Philadelphia 76ers'],
+  ['PHO', 'Phoenix Suns'],
+  ['POR', 'Portland Trail Blazers'],
+  ['SAC', 'Sacramento Kings'],
+  ['SAS', 'San Antonio Spurs'],
+  ['TOR', 'Toronto Raptors'],
+  ['UTA', 'Utah Jazz'],
+  ['WAS', 'Washington Wizards']
+]
 
 missing_players = {'Gary Trent Jr': 'Gary Trent', 'Patrick Mills': 'Patty Mills'\
 				   , 'Moe Harkless': 'Maurice Harkless', 'TJ Warren': 'T.J. Warren',\
@@ -22,11 +53,11 @@ missing_players = {'Gary Trent Jr': 'Gary Trent', 'Patrick Mills': 'Patty Mills'
 
 def generate_player_stats():
 	p_dict = {}
-	with open('all_players_updated_feb29.csv', 'r') as csvfile:
+	with open('all_players_updated_mar5.csv', 'r') as csvfile:
 		    reader = csv.reader(csvfile, delimiter=',')
 		    for row in reader:
 		    	name = row[1].split('\\')[0]
-		    	p_dict[name] = {'Age': row[4], 'Pos': row[3], 'eFG%': row[16], 'PTS': row[18], 'GP': row[5]}
+		    	p_dict[name] = {'Age': row[4], 'URate':row[8], 'TO%':row[9], 'Pos': row[3], 'eFG%': row[16], 'PTS': row[18], 'GP': row[5]}
 
 	with open('player_stats.pickle', 'wb') as handle:
     		pickle.dump(p_dict, handle)
@@ -44,7 +75,7 @@ player_dict = {}
 # else:
 player_dict = generate_player_stats()
 
-header_stats = ['eFG%','Age','PTS','Pos','GP']
+header_stats = ['eFG%','URate','TO%','Age','PTS','Pos','GP']
 
 for team in nba_teams:
 	# URL page we will scraping (see image above)
