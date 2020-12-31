@@ -53,7 +53,7 @@ missing_players = {'Gary Trent Jr': 'Gary Trent', 'Patrick Mills': 'Patty Mills'
 
 def generate_player_stats():
 	p_dict = {}
-	with open('all_players_updated_mar5.csv', 'r') as csvfile:
+	with open('all_players_updated_dec30.csv', 'r') as csvfile:
 		    reader = csv.reader(csvfile, delimiter=',')
 		    for row in reader:
 		    	name = row[1].split('\\')[0]
